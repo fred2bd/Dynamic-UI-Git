@@ -33,16 +33,16 @@ public class ForumActivity extends Activity {
 
     LinearLayout linearLayout;
     Model model;
-    EditText editText;
-    String jArray="[{\"contentType\":\"text\",\"contentLabel\":\"name\",\"hints\":\"john\",\"order\":0},{\"contentType\":\"number\",\"contentLabel\":\"Phone Number\",\"hints\":0,\"order\":1},{\"contentType\":\"text\",\"contentLabel\":\"Address\",\"hints\":address,\"order\":3}]";
+    String jArray = "[{\"contentType\":\"text\",\"contentLabel\":\"name\",\"hints\":\"john\",\"order\":0},{\"contentType\":\"number\",\"contentLabel\":\"Phone Number\",\"hints\":0,\"order\":1},{\"contentType\":\"text\",\"contentLabel\":\"Address\",\"hints\":address,\"order\":3}]";
     JSONArray jsonArray;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
         try {
-             jsonArray =new JSONArray(jArray);
+            jsonArray = new JSONArray(jArray);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -68,8 +68,9 @@ public class ForumActivity extends Activity {
             public void onClick(View v) {
                 page--;
                 linearLayout.removeAllViews();
-                if (AppConstance.order == 1) {
-                    previousBtn.setVisibility(View.GONE);
+                nextBtn.setVisibility(View.VISIBLE);
+                if (page == 0) {
+                    previousBtn.setVisibility(View.INVISIBLE);
                 }
                 getDetails(page);
             }
@@ -81,6 +82,10 @@ public class ForumActivity extends Activity {
             @Override
             public void onClick(View v) {
                 page++;
+                Log.e(TAG, "page " + page);
+                if (page == 2) {
+                    nextBtn.setVisibility(View.INVISIBLE);
+                }
                 linearLayout.removeAllViews();
                 previousBtn.setVisibility(View.VISIBLE);
                 getDetails(page);
@@ -104,7 +109,11 @@ public class ForumActivity extends Activity {
         if (type.contains("text")) {
             TextView textView = new TextView(this);
             textView.setText(AppConstance.label);
-            editText = new EditText(this);
+            textView.setTextSize(20);
+            EditText editText = new EditText(this);
+            editText.setPadding(50, 0, 0, 0);
+            editText.setHeight(150);
+            editText.setBackground(getResources().getDrawable(R.drawable.background));
             editText.setHint(hint);
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -134,9 +143,13 @@ public class ForumActivity extends Activity {
         } else if (type.contains("number")) {
             TextView textView = new TextView(this);
             textView.setText(AppConstance.label);
+            textView.setTextSize(20);
             EditText editText = new EditText(this);
+            editText.setHeight(150);
+            editText.setPadding(50, 0, 0, 0);
+            editText.setBackground(getResources().getDrawable(R.drawable.background));
             editText.setHint(hint);
-            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            // editText.setInputType(InputType.TYPE_CLASS_NUMBER);
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {

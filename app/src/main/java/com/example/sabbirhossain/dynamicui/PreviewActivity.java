@@ -16,7 +16,6 @@ public class PreviewActivity extends Activity {
         PreviewListviewAdapter listviewAdapter = new PreviewListviewAdapter(PreviewActivity.this, AppConstance.arrayList);
         previewListview.setAdapter(listviewAdapter);
 
-
     }
 
 //    @Override

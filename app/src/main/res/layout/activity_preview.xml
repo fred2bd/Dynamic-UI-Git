@@ -17,5 +17,6 @@
         android:id="@+id/previewList"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/btnSubmit" />
+        android:layout_above="@+id/btnSubmit"
+        />
 </RelativeLayout>
